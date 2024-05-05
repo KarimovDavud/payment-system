@@ -1,20 +1,18 @@
 import tkinter as tk
 
 def process_payment():
-    # Ödeme işlemleri burada gerçekleştirilebilir
     print("Payment completed.")
 
 def format_credit_card_number(e):
-    s = e.get().replace("-", "")[:16]  # "-" karakterlerini kaldır ve ilk 16 karakteri al
-    formatted = '-'.join([s[i:i+4] for i in range(0, len(s), 4)])  # Her 4 rakamdan sonra "-" ekle
-    e.delete(0, tk.END)  # Giriş kutusunu temizle
-    e.insert(0, formatted)  # Biçimlendirilmiş değeri ekle
+    s = e.get().replace("-", "")[:16]  
+    formatted = '-'.join([s[i:i+4] for i in range(0, len(s), 4)])  
+    e.delete(0, tk.END) 
+    e.insert(0, formatted)  
 
 def show_invoice():
     invoice_window = tk.Toplevel(root)
     invoice_window.title("Invoice")
 
-    # Ödeme bilgilerini içeren bir etiket ekleyelim
     tk.Label(invoice_window, text="Billing Address", font=("Helvetica", 16, "bold")).pack(pady=10)
     tk.Label(invoice_window, text=f"Full Name: {full_name_entry.get()}").pack()
     tk.Label(invoice_window, text=f"Email: {email_entry.get()}").pack()
@@ -90,10 +88,10 @@ tk.Label(exp_frame, text="Exp Year:").grid(row=0, column=2, sticky="w")
 tk.Entry(exp_frame, width=5).grid(row=0, column=3, padx=5, pady=5)
 
 tk.Label(payment_frame, text="CVV:").grid(row=4, column=0, sticky="w")
-cvv_entry = tk.Entry(payment_frame, width=5, show="*")  # CVV'yi parola gibi göster
+cvv_entry = tk.Entry(payment_frame, width=5, show="*")  
 cvv_entry.grid(row=4, column=1, padx=5, pady=5)
 cvv_entry['validate'] = 'key'
-cvv_entry['validatecommand'] = (root.register(lambda x: len(x) <= 3), '%P')  # Maksimum uzunluğu kontrol et
+cvv_entry['validatecommand'] = (root.register(lambda x: len(x) <= 3), '%P')  
 
 checkout_button = tk.Button(main_frame, text="Continue to checkout", command=show_invoice)
 checkout_button.grid(row=2, column=0, pady=10)
